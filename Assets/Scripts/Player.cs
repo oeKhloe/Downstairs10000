@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] float moveSpeed = 2f;
+    [SerializeField] float moveSpeed = 5f;
+    GameObject currentFloor;
     void Start()
     {
         Debug.Log(123);
@@ -30,12 +31,18 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "NormalFloor")
         {
-            Debug.Log("Hit floor1");
+            Debug.Log("Hit NormalFloor");
+            currentFloor = other.gameObject;
         }
-
-        if (other.gameObject.tag == "NailFloor")
+        else if (other.gameObject.tag == "NailFloor")
         {
-            Debug.Log("Hit floor2");
+            Debug.Log("Hit NailFloor");
+            currentFloor = other.gameObject;
+        }
+        else if (other.gameObject.tag == "Ceiling")
+        {
+            Debug.Log("Hit Ceiling");
+            currentFloor.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 
