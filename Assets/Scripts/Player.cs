@@ -31,13 +31,21 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "NormalFloor")
         {
-            Debug.Log("Hit NormalFloor");
-            currentFloor = other.gameObject;
+            // only if the player stands on the upper surface of the floor can it be counted as currentFloor
+            if (other.contacts[0].normal == new Vector2(0f, 1f))
+            {
+                Debug.Log("Hit NormalFloor");
+                currentFloor = other.gameObject;
+            }
+
         }
         else if (other.gameObject.tag == "NailFloor")
         {
-            Debug.Log("Hit NailFloor");
-            currentFloor = other.gameObject;
+            if (other.contacts[0].normal == new Vector2(0f, 1f))
+            {
+                Debug.Log("Hit NailFloor");
+                currentFloor = other.gameObject;
+            }
         }
         else if (other.gameObject.tag == "Ceiling")
         {
