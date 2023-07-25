@@ -1,24 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float moveSpeed = 7f;
     GameObject currentFloor;
     [SerializeField] int healthPoint;
     [SerializeField] GameObject HpBar;
-
+    [SerializeField] Text scoreText;
+    int score;
+    float scoreTime;
     void Start()
     {
         healthPoint = 10;
+        score = 0;
+        scoreTime = 0;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        // the player can move left/right using A/D and left/right arrow Key
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
@@ -27,7 +33,8 @@ public class Player : MonoBehaviour
         {
             transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
         }
-
+        // show score on the screen 
+        UpdateScore();
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -97,6 +104,17 @@ public class Player : MonoBehaviour
             {
                 HpBar.transform.GetChild(i).gameObject.SetActive(false);
             }
+        }
+    }
+
+    void UpdateScore()
+    {
+        scoreTime += Time.deltaTime;
+        if (scoreTime > 2f)
+        {
+            score++;
+            scoreTime = 0f;
+            scoreText.text = "Basement\r\nLevel " + score.ToString();
         }
     }
 }
