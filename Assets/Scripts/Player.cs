@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     GameObject currentFloor;
     [SerializeField] int healthPoint;
+    [SerializeField] GameObject HpBar;
+
     void Start()
     {
         healthPoint = 10;
@@ -38,6 +40,7 @@ public class Player : MonoBehaviour
                 Debug.Log("Hit NormalFloor");
                 currentFloor = other.gameObject;
                 ModifyHealthPoint(1);
+                UpdateHpBar();
             }
 
         }
@@ -48,6 +51,7 @@ public class Player : MonoBehaviour
                 Debug.Log("Hit NailFloor");
                 currentFloor = other.gameObject;
                 ModifyHealthPoint(-2);
+                UpdateHpBar();
             }
         }
         else if (other.gameObject.tag == "Ceiling")
@@ -55,6 +59,7 @@ public class Player : MonoBehaviour
             Debug.Log("Hit Ceiling");
             currentFloor.GetComponent<BoxCollider2D>().enabled = false;
             ModifyHealthPoint(-3);
+            UpdateHpBar();
 
         }
     }
@@ -77,6 +82,21 @@ public class Player : MonoBehaviour
         else if (healthPoint <= 0)
         {
             healthPoint = 0;
+        }
+    }
+
+    void UpdateHpBar()
+    {
+        for (int i = 0; i < HpBar.transform.childCount; i++)
+        {
+            if (healthPoint > i)
+            {
+                HpBar.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                HpBar.transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
 }
