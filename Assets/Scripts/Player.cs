@@ -7,9 +7,10 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] float moveSpeed = 5f;
     GameObject currentFloor;
+    [SerializeField] int healthPoint;
     void Start()
     {
-        Debug.Log(123);
+        healthPoint = 10;
 
     }
 
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Hit NormalFloor");
                 currentFloor = other.gameObject;
+                ModifyHealthPoint(1);
             }
 
         }
@@ -45,12 +47,15 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Hit NailFloor");
                 currentFloor = other.gameObject;
+                ModifyHealthPoint(-2);
             }
         }
         else if (other.gameObject.tag == "Ceiling")
         {
             Debug.Log("Hit Ceiling");
             currentFloor.GetComponent<BoxCollider2D>().enabled = false;
+            ModifyHealthPoint(-3);
+
         }
     }
 
@@ -59,6 +64,19 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "DeathLine")
         {
             Debug.Log("you lose");
+        }
+    }
+
+    void ModifyHealthPoint(int num)
+    {
+        healthPoint += num;
+        if (healthPoint >= 10)
+        {
+            healthPoint = 10;
+        }
+        else if (healthPoint <= 0)
+        {
+            healthPoint = 0;
         }
     }
 }
