@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
             Debug.Log("you lose");
         }
     }
-
+    // the range of HP is 0-10
     void ModifyHealthPoint(int num)
     {
         healthPoint += num;
@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // HP bar is shown or hidden correspond to HP
     void UpdateHpBar()
     {
         for (int i = 0; i < HpBar.transform.childCount; i++)
@@ -107,6 +108,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Show score in UI
     void UpdateScore()
     {
         scoreTime += Time.deltaTime;
