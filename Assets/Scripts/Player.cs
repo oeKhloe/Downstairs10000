@@ -28,10 +28,14 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+            // turn the player to the right when it moves towards right
+            GetComponent<SpriteRenderer>().flipX = false;
         }
         else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
+            // turn the player to the left when it moves towards left
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         // show score on the screen 
         UpdateScore();
